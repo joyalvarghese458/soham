@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
@@ -8,6 +8,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ChevronDown } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const BG_IMAGES = [
+  {
+    src: 'https://images.pexels.com/photos/2280200/pexels-photo-2280200.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    alt: 'Yoga practice at sunset',
+    pos: 'object-center',
+  },
+  {
+    src: 'https://images.pexels.com/photos/26856873/pexels-photo-26856873.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    alt: 'Bharatanatyam classical dance performance',
+    pos: 'object-center',
+  },
+]
 
 const stats = [
   { value: '7', label: 'Yoga Styles' },
@@ -18,6 +31,14 @@ const stats = [
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % BG_IMAGES.length)
+    }, 6000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -92,45 +113,27 @@ export default function Hero() {
     >
       {/* Animated cinematic background */}
       <div className="hero-bg-layer absolute inset-0">
-        {/* Dual composition — real photos split: Yoga left | Dance right */}
-        <div className="absolute inset-0 flex">
-          {/* Left — Yoga photo */}
-          <div className="relative w-1/2 h-full overflow-hidden">
+        {/* Crossfading full-screen images */}
+        {BG_IMAGES.map((img, i) => (
+          <div
+            key={i}
+            className="absolute inset-0"
+            style={{
+              opacity: i === current ? 1 : 0,
+              transition: 'opacity 1.5s ease-in-out',
+              zIndex: i === current ? 1 : 0,
+            }}
+          >
             <Image
-              src="https://images.pexels.com/photos/2280200/pexels-photo-2280200.jpeg?auto=compress&cs=tinysrgb&w=1280&q=85"
-              alt="Yoga practice at sunset"
+              src={img.src}
+              alt={img.alt}
               fill
-              priority
-              sizes="50vw"
-              className="object-cover object-center"
+              priority={i === 0}
+              sizes="100vw"
+              className={`object-cover ${img.pos}`}
             />
-            {/* Darken left side slightly more toward center */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-black/60" />
           </div>
-
-          {/* Right — Bharatanatyam temple photo */}
-          <div className="relative w-1/2 h-full overflow-hidden">
-            <Image
-              src="https://images.pexels.com/photos/26856873/pexels-photo-26856873.jpeg?auto=compress&cs=tinysrgb&w=1280&q=85"
-              alt="Bharatanatyam classical dance performance"
-              fill
-              priority
-              sizes="50vw"
-              className="object-cover object-top"
-            />
-            {/* Darken right side slightly more toward center */}
-            <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-black/60" />
-          </div>
-        </div>
-
-        {/* Center split line glow */}
-        <div
-          className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-0.5 opacity-60 z-10"
-          style={{
-            background:
-              'linear-gradient(180deg, transparent, #B6862C 30%, #D4A84B 50%, #B6862C 70%, transparent)',
-          }}
-        />
+        ))}
 
         {/* Cinematic vignette + bottom fade for text readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/85 z-10" />
