@@ -8,39 +8,91 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const SLIDES = [
   {
     id: 0,
-    category: 'Classical Dance',
-    title: 'Bharatanatyam',
-    subtitle: 'The temple dance of Tamil Nadu — grace, rhythm and devotion',
-    src: 'https://images.pexels.com/photos/5262079/pexels-photo-5262079.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
-    credit: 'Photo: Pexels',
+    category: 'Yoga',
+    title: 'Hatha Yoga',
+    subtitle: 'The foundation of all yoga traditions — classical postures, conscious breath and deep relaxation',
+    src: 'https://images.pexels.com/photos/6157502/pexels-photo-6157502.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
     accent: '#B6862C',
   },
   {
     id: 1,
-    category: 'Classical Dance',
-    title: 'Mohiniyattam',
-    subtitle: 'Kerala\'s dance of the enchantress — lyrical, sensuous and serene',
-    src: 'https://images.pexels.com/photos/26185987/pexels-photo-26185987.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
-    credit: 'Photo: Pexels / 6th Era Photography',
-    accent: '#D4A84B',
-  },
-  {
-    id: 2,
-    category: 'Classical Dance',
-    title: 'Kuchipudi & Semi-Classical',
-    subtitle: 'Vibrant storytelling through expressive postures and footwork',
-    src: 'https://images.pexels.com/photos/18240707/pexels-photo-18240707.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
-    credit: 'Photo: Pexels',
+    category: 'Yoga',
+    title: 'Ashtanga Yoga',
+    subtitle: 'A dynamic, flowing sequence of postures synchronised with breath — strength, stamina and focus',
+    src: 'https://images.pexels.com/photos/2280200/pexels-photo-2280200.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
     accent: '#B6862C',
   },
   {
+    id: 2,
+    category: 'Yoga',
+    title: 'Aerial Yoga',
+    subtitle: 'Suspended in silk hammocks — zero-gravity inversions that decompress the spine and deepen every stretch',
+    src: 'https://images.pexels.com/photos/8436605/pexels-photo-8436605.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#D4A84B',
+  },
+  {
     id: 3,
-    category: 'Wellness & Yoga',
-    title: 'Yoga & Mindfulness',
-    subtitle: 'Ancient wisdom, modern living — body, breath and stillness united',
-    src: 'https://images.pexels.com/photos/6157502/pexels-photo-6157502.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
-    credit: 'Photo: Pexels',
+    category: 'Yoga',
+    title: 'Meditation',
+    subtitle: 'Stillness found at the centre of a busy world — pranayama and guided meditation for inner calm',
+    src: 'https://images.pexels.com/photos/8437076/pexels-photo-8437076.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
     accent: '#2D5A3F',
+  },
+  {
+    id: 4,
+    category: 'Yoga',
+    title: 'Prenatal Yoga',
+    subtitle: 'Nurturing movement for expectant mothers — safe postures that support the changing body and calm the mind',
+    src: 'https://images.pexels.com/photos/8436490/pexels-photo-8436490.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#B6862C',
+  },
+  {
+    id: 5,
+    category: 'Yoga',
+    title: 'Therapeutic Yoga',
+    subtitle: 'Healing-focused sequences guided by certified therapists for pain management and emotional recovery',
+    src: 'https://images.pexels.com/photos/6339347/pexels-photo-6339347.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#B6862C',
+  },
+  {
+    id: 6,
+    category: 'Classical Dance',
+    title: 'Bharatanatyam',
+    subtitle: 'The temple dance of Tamil Nadu — a divine conversation of grace, rhythm and devotion',
+    src: 'https://images.pexels.com/photos/30424952/pexels-photo-30424952.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#D4A84B',
+  },
+  {
+    id: 7,
+    category: 'Classical Dance',
+    title: 'Mohiniyattam',
+    subtitle: "Kerala's dance of the enchantress — lyrical, flowing and profoundly feminine",
+    src: 'https://images.pexels.com/photos/30444651/pexels-photo-30444651.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#D4A84B',
+  },
+  {
+    id: 8,
+    category: 'Classical Dance',
+    title: 'Kuchipudi',
+    subtitle: 'Dramatic storytelling through intricate footwork, expressive abhinaya and vibrant rhythm',
+    src: 'https://images.pexels.com/photos/26856873/pexels-photo-26856873.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#B6862C',
+  },
+  {
+    id: 9,
+    category: 'Classical Dance',
+    title: 'Semi-Classical',
+    subtitle: 'Where classical tradition meets folk vibrancy — expressive, accessible and joyful',
+    src: 'https://images.pexels.com/photos/8610533/pexels-photo-8610533.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#B6862C',
+  },
+  {
+    id: 10,
+    category: 'Dance',
+    title: 'Bollywood',
+    subtitle: 'High-energy choreography drawn from India\'s iconic film tradition — pure joy in every beat',
+    src: 'https://images.pexels.com/photos/18240707/pexels-photo-18240707.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85',
+    accent: '#D4A84B',
   },
 ]
 
@@ -195,7 +247,7 @@ export default function ImageCarousel() {
                   alt={slide.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1280px"
-                  className="object-cover object-center"
+                  className={`object-cover object-${slide.pos ?? 'center'}`}
                   priority={slide.id === 0}
                   draggable={false}
                 />
@@ -305,28 +357,28 @@ export default function ImageCarousel() {
           </div>
 
           {/* Dot navigation + thumbnails */}
-          <div className="mt-4 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4">
+          <div className="mt-4 sm:mt-6 flex items-center justify-center gap-2 flex-wrap">
             {SLIDES.map((s, i) => (
               <button
                 key={s.id}
                 onClick={() => goTo(i, i > current ? 1 : -1)}
                 aria-label={`Go to ${s.title}`}
-                className="group flex flex-col items-center gap-2 focus:outline-none"
+                className="group flex flex-col items-center gap-1.5 focus:outline-none"
               >
                 {/* Thumbnail — visible on sm+ */}
                 <div
-                  className={`hidden sm:block relative overflow-hidden rounded-xl transition-all duration-300 ${
+                  className={`hidden sm:block relative overflow-hidden rounded-lg transition-all duration-300 ${
                     i === current
-                      ? 'ring-2 ring-[#B6862C] ring-offset-2 ring-offset-[#0A0F0C] opacity-100 scale-105'
-                      : 'opacity-40 hover:opacity-70 scale-100'
+                      ? 'ring-2 ring-[#B6862C] ring-offset-1 ring-offset-[#0A0F0C] opacity-100 scale-105'
+                      : 'opacity-35 hover:opacity-65 scale-100'
                   }`}
-                  style={{ width: 88, height: 54 }}
+                  style={{ width: 68, height: 42 }}
                 >
                   <Image
                     src={s.src}
                     alt={s.title}
                     fill
-                    sizes="88px"
+                    sizes="68px"
                     className="object-cover object-center"
                   />
                   <div
@@ -340,15 +392,15 @@ export default function ImageCarousel() {
                 <div
                   className={`sm:hidden rounded-full transition-all duration-300 ${
                     i === current
-                      ? 'w-6 h-2 bg-[#B6862C]'
-                      : 'w-2 h-2 bg-white/30 group-hover:bg-white/50'
+                      ? 'w-5 h-1.5 bg-[#B6862C]'
+                      : 'w-1.5 h-1.5 bg-white/30 group-hover:bg-white/50'
                   }`}
                 />
 
                 {/* Label under thumbnail */}
                 <span
-                  className={`hidden lg:block text-[10px] tracking-wide transition-colors duration-300 max-w-[88px] text-center leading-tight ${
-                    i === current ? 'text-[#B6862C]' : 'text-white/35'
+                  className={`hidden lg:block text-[9px] tracking-wide transition-colors duration-300 max-w-[68px] text-center leading-tight ${
+                    i === current ? 'text-[#B6862C]' : 'text-white/30'
                   }`}
                 >
                   {s.title}
