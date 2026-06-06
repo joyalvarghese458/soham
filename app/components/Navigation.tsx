@@ -10,7 +10,7 @@ const navLinks = [
   { label: 'About', href: '/about' },
   { label: 'Disciplines', href: '/disciplines' },
   { label: 'Gallery', href: '/gallery' },
-  { label: 'Contact', href: '#location' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Navigation() {

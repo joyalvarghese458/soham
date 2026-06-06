@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ChevronDown } from 'lucide-react'
@@ -19,21 +19,36 @@ const stats = [
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null)
 
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
-
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Parallax on mouse move
       const hero = heroRef.current
       if (!hero) return
 
+      // Scroll-driven parallax — GSAP is synced with Lenis so no RAF conflict
+      gsap.to('.hero-bg-layer', {
+        y: '30%',
+        scale: 1.1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+
+      gsap.to('.hero-text-layer', {
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: hero,
+          start: 'top top',
+          end: '60% top',
+          scrub: true,
+        },
+      })
+
+      // Mouse-move parallax
       const handleMouseMove = (e: MouseEvent) => {
         const { clientX, clientY } = e
         const { innerWidth, innerHeight } = window
@@ -45,6 +60,7 @@ export default function Hero() {
           y: yPos * 0.3,
           duration: 1.5,
           ease: 'power2.out',
+          overwrite: 'auto',
         })
 
         gsap.to('.hero-text-layer', {
@@ -52,6 +68,7 @@ export default function Hero() {
           y: yPos * -0.05,
           duration: 2,
           ease: 'power2.out',
+          overwrite: 'auto',
         })
       }
 
@@ -74,10 +91,7 @@ export default function Hero() {
       className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center justify-center pt-24 lg:pt-32 pb-24"
     >
       {/* Animated cinematic background */}
-      <motion.div
-        className="hero-bg-layer absolute inset-0"
-        style={{ scale, y }}
-      >
+      <div className="hero-bg-layer absolute inset-0">
         {/* Dual composition — real photos split: Yoga left | Dance right */}
         <div className="absolute inset-0 flex">
           {/* Left — Yoga photo */}
@@ -129,12 +143,11 @@ export default function Hero() {
               'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
           }}
         />
-      </motion.div>
+      </div>
 
       {/* Content */}
       <motion.div
         className="hero-text-layer relative z-20 text-center px-6 max-w-5xl mx-auto w-full"
-        style={{ opacity }}
       >
         {/* Tag line */}
         <motion.div

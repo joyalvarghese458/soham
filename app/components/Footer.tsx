@@ -22,10 +22,10 @@ const footerLinks = {
   quick: [
     { label: 'About Soham', href: '/about' },
     { label: 'Our Founders', href: '#founders' },
-    { label: 'Gallery', href: '#gallery' },
+    { label: 'Gallery', href: '/gallery' },
     { label: 'Student Reviews', href: '#testimonials' },
     { label: 'Book a Trial', href: 'tel:+971581592454' },
-    { label: 'Contact', href: '#location' },
+    { label: 'Contact', href: '/contact' },
   ],
 }
 
