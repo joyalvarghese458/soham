@@ -114,8 +114,8 @@ export default function WhySoham() {
             <div className="relative overflow-hidden rounded-3xl aspect-[4/5]">
               <div ref={imageRef} className="absolute inset-0">
                 <Image
-                  src="https://images.pexels.com/photos/8436405/pexels-photo-8436405.jpeg?auto=compress&cs=tinysrgb&w=900&q=85"
-                  alt="Yoga class at SOHAM UAE"
+                  src="https://images.pexels.com/photos/4708397/pexels-photo-4708397.jpeg?auto=compress&cs=tinysrgb&w=900&q=85"
+                  alt="Welcoming instructor with namaste gesture at SOHAM UAE"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover object-center"
