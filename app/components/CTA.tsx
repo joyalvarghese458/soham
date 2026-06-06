@@ -1,98 +1,8 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowRight, Sparkles } from 'lucide-react'
-
-gsap.registerPlugin(ScrollTrigger)
-
-function ParticleField() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animId: number
-    const particles: Array<{
-      x: number
-      y: number
-      size: number
-      speedX: number
-      speedY: number
-      opacity: number
-      life: number
-      maxLife: number
-    }> = []
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-
-    const createParticle = () => {
-      const x = Math.random() * canvas.width
-      const y = canvas.height + 10
-      particles.push({
-        x,
-        y,
-        size: Math.random() * 2 + 0.5,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: -(Math.random() * 1.5 + 0.5),
-        opacity: Math.random() * 0.6 + 0.2,
-        life: 0,
-        maxLife: Math.random() * 200 + 100,
-      })
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      if (Math.random() < 0.3) createParticle()
-
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i]
-        p.x += p.speedX
-        p.y += p.speedY
-        p.life++
-
-        const lifeRatio = p.life / p.maxLife
-        const currentOpacity = p.opacity * (1 - lifeRatio)
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(182, 134, 44, ${currentOpacity})`
-        ctx.fill()
-
-        if (p.life >= p.maxLife || p.y < 0) {
-          particles.splice(i, 1)
-        }
-      }
-
-      animId = requestAnimationFrame(animate)
-    }
-
-    resize()
-    window.addEventListener('resize', resize)
-    animate()
-
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', resize)
-    }
-  }, [])
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
-    />
-  )
-}
 
 export default function CTA() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -119,45 +29,31 @@ export default function CTA() {
           }}
         />
 
-        {/* Animated gradient orbs */}
-        <motion.div
-          className="absolute"
+        {/* Gradient orbs — CSS animations run on compositor, zero JS cost */}
+        <div
+          className="absolute pointer-events-none"
           style={{
             width: '600px',
             height: '600px',
             borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(182,134,44,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(182,134,44,0.08) 0%, transparent 70%)',
             top: '10%',
             left: '-10%',
+            animation: 'orb-a 10s ease-in-out infinite',
           }}
-          animate={{
-            x: [0, 40, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
         />
-
-        <motion.div
-          className="absolute"
+        <div
+          className="absolute pointer-events-none"
           style={{
             width: '500px',
             height: '500px',
             borderRadius: '50%',
-            background:
-              'radial-gradient(circle, rgba(29,59,42,0.3) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(29,59,42,0.3) 0%, transparent 70%)',
             bottom: '0%',
             right: '-5%',
+            animation: 'orb-b 12s ease-in-out 2s infinite',
           }}
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         />
-
-        {/* Particles */}
-        <ParticleField />
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />

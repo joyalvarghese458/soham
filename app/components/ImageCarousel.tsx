@@ -247,7 +247,7 @@ export default function ImageCarousel() {
                   alt={slide.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1280px"
-                  className={`object-cover object-${slide.pos ?? 'center'}`}
+                  className="object-cover object-center"
                   priority={slide.id === 0}
                   draggable={false}
                 />

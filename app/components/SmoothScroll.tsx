@@ -22,20 +22,18 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     })
 
     lenisRef.current = lenis
-    // Expose so Navigation can call lenis.scrollTo() for anchor links
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(window as any).lenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000)
-    })
-
+    const rafFn = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(rafFn)
     gsap.ticker.lagSmoothing(0)
 
     return () => {
       lenis.destroy()
+      gsap.ticker.remove(rafFn)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ;(window as any).lenis = undefined
     }
