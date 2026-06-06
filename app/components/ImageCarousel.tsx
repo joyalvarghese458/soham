@@ -144,26 +144,21 @@ export default function ImageCarousel() {
 
   const slide = SLIDES[current]
 
-  const EASE: [number, number, number, number] = [0.32, 0, 0.16, 1]
-
   const variants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? '100%' : '-100%',
+    enter: {
       opacity: 0,
-      scale: 1.04,
-    }),
+      scale: 1.03,
+    },
     center: {
-      x: 0,
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.3, ease: EASE },
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
     },
-    exit: (dir: number) => ({
-      x: dir > 0 ? '-100%' : '100%',
+    exit: {
       opacity: 0,
-      scale: 0.96,
-      transition: { duration: 0.25, ease: EASE },
-    }),
+      scale: 1.03,
+      transition: { duration: 0.8, ease: [0.4, 0, 0.2, 1] as const },
+    },
   }
 
   return (
@@ -232,7 +227,7 @@ export default function ImageCarousel() {
             }}
           >
             {/* Slides */}
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <AnimatePresence initial={false} mode="sync">
               <motion.div
                 key={slide.id}
                 custom={direction}

@@ -120,8 +120,8 @@ export default function Hero() {
             className="absolute inset-0"
             style={{
               opacity: i === current ? 1 : 0,
-              transition: 'opacity 1.5s ease-in-out',
-              zIndex: i === current ? 1 : 0,
+              transition: 'opacity 1s ease-in-out',
+              zIndex: i,
             }}
           >
             <Image
