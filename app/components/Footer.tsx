@@ -51,203 +51,183 @@ export default function Footer() {
         <div className="divider-gold opacity-20 mb-0" />
 
         {/* Main footer content */}
-        <div className="py-16 grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-12">
-          {/* Brand column — centered on mobile, left-aligned on large */}
+        <div className="py-12 lg:py-16">
+
+          {/* Brand — centered on mobile */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-1 flex flex-col items-center text-center lg:items-start lg:text-left"
+            className="flex flex-col items-center text-center lg:hidden mb-10"
           >
-            {/* Logo */}
-            <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-4">
               <FooterLotus />
               <div>
-                <span
-                  className="text-2xl font-bold tracking-wide"
-                  style={{ color: '#B6862C', fontFamily: 'var(--font-playfair)' }}
-                >
-                  SOHAM
-                </span>
-                <p className="text-[10px] tracking-[0.3em] text-white/30 uppercase -mt-1">
-                  UAE
-                </p>
+                <span className="text-2xl font-bold tracking-wide" style={{ color: '#B6862C', fontFamily: 'var(--font-playfair)' }}>SOHAM</span>
+                <p className="text-[10px] tracking-[0.3em] text-white/30 uppercase -mt-1">UAE</p>
               </div>
             </div>
-
-            <p className="text-white/45 text-sm leading-relaxed mb-6 max-w-xs">
-              Dubai&apos;s premier Yoga & Classical Dance Academy. Where ancient
-              wisdom meets modern wellness, and every student finds their inner
-              light.
+            <p className="text-white/45 text-sm leading-relaxed mb-5 max-w-[280px]">
+              Dubai&apos;s premier Yoga & Classical Dance Academy — where ancient wisdom meets modern wellness.
             </p>
-
-            {/* Contact */}
-            <div className="space-y-3">
-              <a
-                href="tel:+971581592454"
-                className="flex items-center justify-center lg:justify-start gap-3 text-white/50 hover:text-[#B6862C] transition-colors text-sm group"
-              >
-                <Phone size={14} className="text-[#B6862C] flex-shrink-0" />
-                +971 58 159 2454
+            <div className="flex flex-col items-center gap-2 mb-5">
+              <a href="tel:+971581592454" className="flex items-center gap-2 text-white/50 hover:text-[#B6862C] transition-colors text-sm">
+                <Phone size={13} className="text-[#B6862C]" />+971 58 159 2454
               </a>
-              <a
-                href="mailto:info@sohamuae.com"
-                className="flex items-center justify-center lg:justify-start gap-3 text-white/50 hover:text-[#B6862C] transition-colors text-sm"
-              >
-                <Mail size={14} className="text-[#B6862C] flex-shrink-0" />
-                info@sohamuae.com
+              <a href="mailto:info@sohamuae.com" className="flex items-center gap-2 text-white/50 hover:text-[#B6862C] transition-colors text-sm">
+                <Mail size={13} className="text-[#B6862C]" />info@sohamuae.com
               </a>
-              <div className="flex items-start justify-center lg:justify-start gap-3 text-white/50 text-sm">
-                <MapPin size={14} className="text-[#B6862C] flex-shrink-0 mt-0.5" />
-                <span>
-                  M03 Wasl Village Mall
-                  <br />
-                  Muhaisnah, Dubai UAE
-                </span>
+              <div className="flex items-center gap-2 text-white/50 text-sm">
+                <MapPin size={13} className="text-[#B6862C]" />
+                <span>M03 Wasl Village Mall, Muhaisnah, Dubai</span>
               </div>
             </div>
-
-            {/* Social */}
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-3">
               {socials.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-white/40 hover:text-[#B6862C] hover:border-[#B6862C]/40 transition-all duration-300 text-[10px] font-bold"
-                  style={{
-                    background: 'rgba(255,255,255,0.04)',
-                    border: '1px solid rgba(255,255,255,0.08)',
-                  }}
-                >
+                <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-white/40 hover:text-[#B6862C] transition-all duration-300 text-[10px] font-bold"
+                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
                   {social.letter}
                 </a>
               ))}
             </div>
           </motion.div>
 
-          {/* Link columns — 2-col grid on mobile, 3-col on large */}
-          <div className="lg:col-span-3 grid grid-cols-2 sm:grid-cols-3 gap-8 lg:gap-12">
+          {/* Mobile: thin gold divider */}
+          <div className="lg:hidden divider-gold opacity-20 mb-10" />
 
-            {/* Classes */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <h4
-                className="text-white font-medium mb-5 tracking-widest text-xs uppercase"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                Yoga Classes
-              </h4>
+          {/* Desktop: 4-col grid | Mobile: structured sections */}
+          <div className="hidden lg:grid lg:grid-cols-4 gap-12">
+            {/* Brand — desktop only */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <div className="flex items-center gap-3 mb-5">
+                <FooterLotus />
+                <div>
+                  <span className="text-2xl font-bold tracking-wide" style={{ color: '#B6862C', fontFamily: 'var(--font-playfair)' }}>SOHAM</span>
+                  <p className="text-[10px] tracking-[0.3em] text-white/30 uppercase -mt-1">UAE</p>
+                </div>
+              </div>
+              <p className="text-white/45 text-sm leading-relaxed mb-6">Dubai&apos;s premier Yoga & Classical Dance Academy. Where ancient wisdom meets modern wellness, and every student finds their inner light.</p>
+              <div className="space-y-3">
+                <a href="tel:+971581592454" className="flex items-center gap-3 text-white/50 hover:text-[#B6862C] transition-colors text-sm">
+                  <Phone size={14} className="text-[#B6862C] flex-shrink-0" />+971 58 159 2454
+                </a>
+                <a href="mailto:info@sohamuae.com" className="flex items-center gap-3 text-white/50 hover:text-[#B6862C] transition-colors text-sm">
+                  <Mail size={14} className="text-[#B6862C] flex-shrink-0" />info@sohamuae.com
+                </a>
+                <div className="flex items-start gap-3 text-white/50 text-sm">
+                  <MapPin size={14} className="text-[#B6862C] flex-shrink-0 mt-0.5" />
+                  <span>M03 Wasl Village Mall<br />Muhaisnah, Dubai UAE</span>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-6">
+                {socials.map((social) => (
+                  <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label}
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-white/40 hover:text-[#B6862C] transition-all duration-300 text-[10px] font-bold"
+                    style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}>
+                    {social.letter}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Yoga Classes */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+              <h4 className="text-white font-medium mb-5 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Yoga Classes</h4>
               <ul className="space-y-3">
                 {footerLinks.classes.map((item) => (
-                  <li key={item}>
-                    <a
-                      href="/disciplines"
-                      className="text-white/45 hover:text-[#B6862C] transition-colors text-sm border-gold-animate"
-                    >
-                      {item}
-                    </a>
-                  </li>
+                  <li key={item}><a href="/disciplines" className="text-white/45 hover:text-[#B6862C] transition-colors text-sm">{item}</a></li>
                 ))}
               </ul>
             </motion.div>
 
             {/* Dance Programs */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <h4
-                className="text-white font-medium mb-5 tracking-widest text-xs uppercase"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                Dance Programs
-              </h4>
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+              <h4 className="text-white font-medium mb-5 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Dance Programs</h4>
               <ul className="space-y-3">
                 {footerLinks.dance.map((item) => (
-                  <li key={item}>
-                    <a
-                      href="/disciplines"
-                      className="text-white/45 hover:text-[#B6862C] transition-colors text-sm"
-                    >
-                      {item}
-                    </a>
-                  </li>
+                  <li key={item}><a href="/disciplines" className="text-white/45 hover:text-[#B6862C] transition-colors text-sm">{item}</a></li>
                 ))}
               </ul>
-
-              {/* Studio hours */}
               <div className="mt-8">
-                <h4
-                  className="text-white font-medium mb-4 tracking-widest text-xs uppercase"
-                  style={{ letterSpacing: '0.2em' }}
-                >
-                  Studio Hours
-                </h4>
+                <h4 className="text-white font-medium mb-4 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Studio Hours</h4>
                 <p className="text-white/45 text-sm">Open 7 Days a Week</p>
                 <p className="text-[#B6862C] text-sm">6:00 AM – 9:00 PM</p>
               </div>
             </motion.div>
 
-            {/* Quick Links */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="col-span-2 sm:col-span-1"
-            >
-              <h4
-                className="text-white font-medium mb-5 tracking-widest text-xs uppercase"
-                style={{ letterSpacing: '0.2em' }}
-              >
-                Quick Links
-              </h4>
+            {/* Quick Links + Newsletter */}
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}>
+              <h4 className="text-white font-medium mb-5 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Quick Links</h4>
               <ul className="space-y-3">
                 {footerLinks.quick.map((item) => (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      className="text-white/45 hover:text-[#B6862C] transition-colors text-sm"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
+                  <li key={item.label}><a href={item.href} className="text-white/45 hover:text-[#B6862C] transition-colors text-sm">{item.label}</a></li>
                 ))}
               </ul>
-
-              {/* Newsletter */}
               <div className="mt-8">
-                <h4
-                  className="text-white font-medium mb-4 tracking-widest text-xs uppercase"
-                  style={{ letterSpacing: '0.2em' }}
-                >
-                  Newsletter
-                </h4>
-                <p className="text-white/40 text-xs mb-3">
-                  Get wellness tips & event updates
-                </p>
+                <h4 className="text-white font-medium mb-4 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Newsletter</h4>
+                <p className="text-white/40 text-xs mb-3">Get wellness tips & event updates</p>
                 <div className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="Your email"
-                    className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B6862C]/50 transition-colors min-w-0"
-                  />
-                  <button
-                    className="px-4 py-2 rounded-lg text-xs font-medium text-[#111] flex-shrink-0 transition-all hover:opacity-90"
-                    style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)' }}
-                  >
-                    Join
-                  </button>
+                  <input type="email" placeholder="Your email" className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B6862C]/50 transition-colors min-w-0" />
+                  <button className="px-4 py-2 rounded-lg text-xs font-medium text-[#111] flex-shrink-0 transition-all hover:opacity-90" style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)' }}>Join</button>
                 </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Mobile: links grid */}
+          <div className="lg:hidden space-y-8">
+
+            {/* Row 1: Yoga + Dance side by side */}
+            <div className="grid grid-cols-2 gap-6">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                <h4 className="text-white font-medium mb-4 text-xs uppercase text-center" style={{ letterSpacing: '0.2em' }}>Yoga Classes</h4>
+                <ul className="space-y-2.5 text-center">
+                  {footerLinks.classes.map((item) => (
+                    <li key={item}><a href="/disciplines" className="text-white/45 hover:text-[#B6862C] transition-colors text-xs">{item}</a></li>
+                  ))}
+                </ul>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}>
+                <h4 className="text-white font-medium mb-4 text-xs uppercase text-center" style={{ letterSpacing: '0.2em' }}>Dance Programs</h4>
+                <ul className="space-y-2.5 text-center">
+                  {footerLinks.dance.map((item) => (
+                    <li key={item}><a href="/disciplines" className="text-white/45 hover:text-[#B6862C] transition-colors text-xs">{item}</a></li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            {/* Thin divider */}
+            <div className="divider-gold opacity-10" />
+
+            {/* Row 2: Studio Hours + Quick Links side by side */}
+            <div className="grid grid-cols-2 gap-6">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
+                <h4 className="text-white font-medium mb-4 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Studio Hours</h4>
+                <p className="text-white/45 text-xs">Open 7 Days a Week</p>
+                <p className="text-[#B6862C] text-xs mt-1">6:00 AM – 9:00 PM</p>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-center">
+                <h4 className="text-white font-medium mb-4 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Quick Links</h4>
+                <ul className="space-y-2.5">
+                  {footerLinks.quick.slice(0, 4).map((item) => (
+                    <li key={item.label}><a href={item.href} className="text-white/45 hover:text-[#B6862C] transition-colors text-xs">{item.label}</a></li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
+
+            {/* Thin divider */}
+            <div className="divider-gold opacity-10" />
+
+            {/* Newsletter — full width, centered */}
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center">
+              <h4 className="text-white font-medium mb-2 text-xs uppercase" style={{ letterSpacing: '0.2em' }}>Newsletter</h4>
+              <p className="text-white/40 text-xs mb-4">Get wellness tips & event updates</p>
+              <div className="flex gap-2 max-w-xs mx-auto">
+                <input type="email" placeholder="Your email" className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-xs text-white placeholder-white/30 focus:outline-none focus:border-[#B6862C]/50 transition-colors min-w-0" />
+                <button className="px-4 py-2.5 rounded-lg text-xs font-medium text-[#111] flex-shrink-0 transition-all hover:opacity-90" style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)' }}>Join</button>
               </div>
             </motion.div>
 
