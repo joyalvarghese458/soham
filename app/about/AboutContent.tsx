@@ -1,8 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Award, Star, Users, Heart } from 'lucide-react'
+import { Award, Star, Users, Heart, Play } from 'lucide-react'
 
 // ── Pre-computed spokes — avoids SSR/client float mismatch ──────
 const SPOKES = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((angle) => ({
@@ -83,6 +84,8 @@ const founders = [
     ],
     specialties: ['Hatha Yoga', 'Prenatal Yoga', 'Therapeutic Yoga', 'Meditation', 'Pranayama'],
     initial: 'RS',
+    image: 'https://images.pexels.com/photos/4584590/pexels-photo-4584590.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    imagePosition: 'object-center',
     gradient: 'linear-gradient(160deg, #0D2118 0%, #1D3B2A 50%, #2D4A38 100%)',
   },
   {
@@ -98,9 +101,72 @@ const founders = [
     ],
     specialties: ['Bharatanatyam', 'Mohiniyattam', 'Kuchipudi', 'Semi-Classical', 'Bollywood'],
     initial: 'RN',
+    image: 'https://images.pexels.com/photos/31880387/pexels-photo-31880387.jpeg?auto=compress&cs=tinysrgb&w=800&q=80',
+    imagePosition: 'object-top',
     gradient: 'linear-gradient(160deg, #1A0F02 0%, #2D1A04 50%, #3D2810 100%)',
   },
 ]
+
+// ── Video card ───────────────────────────────────────────────────
+function VideoCard({ id, title, desc, tag }: { id: string; title: string; desc: string; tag: string }) {
+  const [playing, setPlaying] = useState(false)
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden group"
+      style={{ aspectRatio: '16/9', border: '1px solid rgba(182,134,44,0.2)', boxShadow: '0 32px 80px rgba(0,0,0,0.6)' }}
+    >
+      {!playing ? (
+        <>
+          <div
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+            style={{ backgroundImage: `url(https://img.youtube.com/vi/${id}/maxresdefault.jpg)` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
+          <div className="absolute top-4 left-4">
+            <span className="text-[10px] px-3 py-1 rounded-full tracking-widest uppercase font-medium"
+              style={{ background: 'rgba(182,134,44,0.2)', border: '1px solid rgba(182,134,44,0.4)', color: '#D4A84B' }}>
+              {tag}
+            </span>
+          </div>
+          <button
+            onClick={() => setPlaying(true)}
+            className="absolute inset-0 flex items-center justify-center"
+            aria-label={`Play ${title}`}
+          >
+            <motion.div
+              whileHover={{ scale: 1.12 }}
+              whileTap={{ scale: 0.95 }}
+              className="w-16 h-16 rounded-full flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)', boxShadow: '0 0 0 14px rgba(182,134,44,0.15), 0 0 50px rgba(182,134,44,0.35)' }}
+            >
+              <Play size={22} fill="#111" color="#111" className="ml-1" />
+            </motion.div>
+          </button>
+          <div className="absolute bottom-0 left-0 right-0 p-5">
+            <h3 className="font-heading text-xl font-bold text-white mb-1" style={{ fontFamily: 'var(--font-playfair)' }}>{title}</h3>
+            <p className="text-white/55 text-sm">{desc}</p>
+          </div>
+          {['top-3 left-3', 'top-3 right-3 rotate-90', 'bottom-3 left-3 -rotate-90', 'bottom-3 right-3 rotate-180'].map((pos, i) => (
+            <div key={i} className={`absolute ${pos} opacity-40 pointer-events-none`}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 2L2 8" stroke="#B6862C" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M2 2L8 2" stroke="#B6862C" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </div>
+          ))}
+        </>
+      ) : (
+        <iframe
+          className="absolute inset-0 w-full h-full"
+          src={`https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&color=white`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      )}
+    </div>
+  )
+}
 
 // Shared fade-up variant with optional stagger index
 const FADE_UP = {
@@ -467,46 +533,35 @@ export default function AboutContent() {
                 }}
               >
                 {/* Portrait area */}
-                <div className="relative h-56 overflow-hidden">
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                    style={{ background: f.gradient }}
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={f.image}
+                    alt={f.name}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    className={`object-cover ${f.imagePosition} transition-transform duration-700 group-hover:scale-105`}
                   />
-                  {/* Decorative mandala */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                  {/* Mandala overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-[0.07] pointer-events-none">
                     <svg width="260" height="260" viewBox="0 0 260 260" fill="none">
                       {[70, 95, 120].map((r, ri) => (
                         <circle key={ri} cx="130" cy="130" r={r} stroke="#B6862C" strokeWidth="1" />
                       ))}
                       {SPOKES.map((pt, ai) => (
-                        <line
-                          key={ai}
-                          x1="130"
-                          y1="130"
-                          x2={pt.x2}
-                          y2={pt.y2}
-                          stroke="#B6862C"
-                          strokeWidth="0.5"
-                          opacity="0.5"
-                        />
+                        <line key={ai} x1="130" y1="130" x2={pt.x2} y2={pt.y2} stroke="#B6862C" strokeWidth="0.5" opacity="0.5" />
                       ))}
                     </svg>
                   </div>
-                  {/* Avatar */}
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  {/* Initials badge */}
+                  <div className="absolute bottom-4 left-5">
                     <div
-                      className="w-28 h-28 rounded-full flex items-center justify-center text-3xl font-bold"
-                      style={{
-                        background: 'rgba(182,134,44,0.15)',
-                        border: '2px solid rgba(182,134,44,0.3)',
-                        fontFamily: 'var(--font-playfair)',
-                        color: '#B6862C',
-                      }}
+                      className="w-14 h-14 rounded-full flex items-center justify-center text-lg font-bold"
+                      style={{ background: 'rgba(182,134,44,0.25)', border: '2px solid rgba(182,134,44,0.5)', fontFamily: 'var(--font-playfair)', color: '#D4A84B', backdropFilter: 'blur(8px)' }}
                     >
                       {f.initial}
                     </div>
                   </div>
-                  <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/80 to-transparent" />
                 </div>
 
                 {/* Content */}
@@ -573,6 +628,70 @@ export default function AboutContent() {
               — Rakhi Sunish &amp; Radhika Narayan
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ── WATCH & EXPERIENCE ───────────────────────────────── */}
+      <section className="section-padding" style={{ background: '#111111' }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10">
+          <motion.div variants={FADE_UP} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
+            <span className="text-[#B6862C] text-xs tracking-[0.35em] uppercase font-medium">Watch & Experience</span>
+            <h2 className="font-heading mt-4 mb-4" style={{ fontFamily: 'var(--font-playfair)', fontSize: 'clamp(1.9rem, 3.5vw, 3.2rem)' }}>
+              See SOHAM in <span className="text-gradient-gold">Motion</span>
+            </h2>
+            <p className="text-white/50 max-w-xl mx-auto">
+              Experience the artistry of our teachers through authentic performances and live yoga flows.
+            </p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            <motion.div variants={FADE_UP} custom={0} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <VideoCard
+                id="JWhA3ldZcyY"
+                title="Bharatanatyam — Shiva Shambho"
+                desc="A mesmerising classical performance showcasing devotion, rhythm and grace."
+                tag="Classical Dance"
+              />
+            </motion.div>
+            <motion.div variants={FADE_UP} custom={1} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+              <VideoCard
+                id="yRCUfumiqhk"
+                title="Power Vinyasa Yoga Flow"
+                desc="Experience our teaching style — strength, breath and flow in perfect harmony."
+                tag="Yoga"
+              />
+            </motion.div>
+          </div>
+
+          {/* Photo gallery strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-10 rounded-2xl overflow-hidden">
+            {[
+              { id: '8437076', alt: 'Yoga class at SOHAM UAE' },
+              { id: '30424952', alt: 'Bharatanatyam performance' },
+              { id: '6339347', alt: 'Group yoga stretching' },
+              { id: '30444651', alt: 'Mohiniyattam classical dance' },
+            ].map((img, i) => (
+              <motion.div
+                key={img.id}
+                custom={i}
+                variants={FADE_UP}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className="relative overflow-hidden group"
+                style={{ aspectRatio: '1' }}
+              >
+                <Image
+                  src={`https://images.pexels.com/photos/${img.id}/pexels-photo-${img.id}.jpeg?auto=compress&cs=tinysrgb&w=600&q=80`}
+                  alt={img.alt}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 

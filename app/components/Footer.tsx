@@ -145,13 +145,7 @@ export default function Footer() {
               {footerLinks.classes.map((item) => (
                 <li key={item}>
                   <a
-                    href="#disciplines"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      document
-                        .getElementById('disciplines')
-                        ?.scrollIntoView({ behavior: 'smooth' })
-                    }}
+                    href="/disciplines"
                     className="text-white/45 hover:text-[#B6862C] transition-colors text-sm border-gold-animate"
                   >
                     {item}
@@ -178,13 +172,7 @@ export default function Footer() {
               {footerLinks.dance.map((item) => (
                 <li key={item}>
                   <a
-                    href="#disciplines"
-                    onClick={(e) => {
-                      e.preventDefault()
-                      document
-                        .getElementById('disciplines')
-                        ?.scrollIntoView({ behavior: 'smooth' })
-                    }}
+                    href="/disciplines"
                     className="text-white/45 hover:text-[#B6862C] transition-colors text-sm"
                   >
                     {item}
