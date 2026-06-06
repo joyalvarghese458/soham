@@ -1,72 +1,66 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ZoomIn } from 'lucide-react'
+import { X, ZoomIn, ArrowRight } from 'lucide-react'
 
 const galleryItems = [
   {
     title: 'Aerial Yoga Flow',
     category: 'Yoga',
     aspect: 'tall',
-    bg: 'linear-gradient(160deg, #0F2016 0%, #1D3B2A 50%, #2D5A3F 100%)',
-    icon: '🧘',
+    src: 'https://images.pexels.com/photos/3822621/pexels-photo-3822621.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Suspended in serenity',
   },
   {
     title: 'Bharatanatyam Performance',
     category: 'Dance',
     aspect: 'wide',
-    bg: 'linear-gradient(135deg, #1A0F02 0%, #3D2810 50%, #1A0F02 100%)',
-    icon: '💃',
+    src: 'https://images.pexels.com/photos/30424952/pexels-photo-30424952.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Ancient grace in motion',
   },
   {
     title: 'Morning Meditation',
     category: 'Yoga',
     aspect: 'square',
-    bg: 'linear-gradient(180deg, #0A1A0F 0%, #1D3B2A 100%)',
-    icon: '☮️',
+    src: 'https://images.pexels.com/photos/1812964/pexels-photo-1812964.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Stillness within',
   },
   {
     title: 'Mohiniyattam Workshop',
     category: 'Dance',
     aspect: 'tall',
-    bg: 'linear-gradient(160deg, #1A0F02 0%, #2D1A04 50%, #B6862C22 100%)',
-    icon: '🌸',
+    src: 'https://images.pexels.com/photos/7234215/pexels-photo-7234215.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Dance of the enchantress',
   },
   {
     title: 'Hatha Yoga Class',
     category: 'Yoga',
     aspect: 'wide',
-    bg: 'linear-gradient(135deg, #0F1F14 0%, #1D3B2A 50%, #152C1E 100%)',
-    icon: '🌿',
+    src: 'https://images.pexels.com/photos/4056723/pexels-photo-4056723.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Balance & alignment',
   },
   {
     title: 'Annual Recital',
     category: 'Events',
     aspect: 'square',
-    bg: 'linear-gradient(135deg, #1A0800 0%, #3D1800 50%, #1A0800 100%)',
-    icon: '✨',
+    src: 'https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Celebrating our students',
   },
   {
     title: 'Kids Kuchipudi',
     category: 'Dance',
     aspect: 'wide',
-    bg: 'linear-gradient(135deg, #100B00 0%, #2D1E02 50%, #B6862C15 100%)',
-    icon: '👧',
+    src: 'https://images.pexels.com/photos/8988434/pexels-photo-8988434.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Little feet, big dreams',
   },
   {
     title: 'Prenatal Yoga',
     category: 'Yoga',
     aspect: 'square',
-    bg: 'linear-gradient(160deg, #0A1F12 0%, #1D3B2A 100%)',
-    icon: '🤰',
+    src: 'https://images.pexels.com/photos/3823063/pexels-photo-3823063.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Gentle care for new life',
   },
 ]
@@ -74,9 +68,11 @@ const galleryItems = [
 function GalleryCard({
   item,
   onOpen,
+  index,
 }: {
   item: (typeof galleryItems)[0]
   onOpen: () => void
+  index: number
 }) {
   const [hovered, setHovered] = useState(false)
 
@@ -88,45 +84,36 @@ function GalleryCard({
       : 'h-64 sm:h-72'
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay: index * 0.07, ease: 'easeOut' }}
       className={`masonry-item relative rounded-2xl overflow-hidden cursor-pointer group ${heightClass}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onOpen}
     >
-      {/* Background */}
-      <div
-        className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-        style={{ background: item.bg }}
+      {/* Real photo */}
+      <Image
+        src={item.src}
+        alt={item.title}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="object-cover transition-transform duration-700 group-hover:scale-110"
       />
 
-      {/* Pattern overlay */}
+      {/* Cinematic overlay */}
       <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 30% 40%, rgba(182,134,44,0.3) 0%, transparent 50%)`,
-        }}
-      />
-
-      {/* Icon large */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <motion.span
-          className="text-6xl sm:text-7xl opacity-20"
-          animate={{ scale: hovered ? 1.2 : 1 }}
-          transition={{ duration: 0.4 }}
-        >
-          {item.icon}
-        </motion.span>
-      </div>
-
-      {/* Overlay */}
-      <motion.div
-        className="absolute inset-0 flex flex-col justify-end p-5"
+        className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, transparent 30%, rgba(17,17,17,0.95) 100%)',
+            'linear-gradient(180deg, transparent 30%, rgba(10,10,10,0.92) 100%)',
         }}
-      >
+      />
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-5">
         <div className="flex items-end justify-between">
           <div>
             <span
@@ -158,8 +145,8 @@ function GalleryCard({
             <ZoomIn size={16} color="#111" />
           </motion.div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </motion.div>
   )
 }
 
@@ -175,7 +162,7 @@ export default function Gallery() {
       style={{ background: '#0D1510' }}
     >
       <div
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-20 pointer-events-none"
         style={{
           backgroundImage:
             'radial-gradient(ellipse at 50% 100%, rgba(29,59,42,0.4) 0%, transparent 60%)',
@@ -222,20 +209,40 @@ export default function Gallery() {
         </div>
 
         {/* Masonry Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="masonry-grid"
-        >
+        <div className="masonry-grid">
           {galleryItems.map((item, i) => (
             <GalleryCard
               key={i}
               item={item}
+              index={i}
               onOpen={() => setLightboxItem(item)}
             />
           ))}
+        </div>
+
+        {/* Explore More CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mt-14 flex justify-center relative z-10"
+        >
+          <Link href="/gallery">
+            <motion.span
+              whileHover={{ scale: 1.04, boxShadow: '0 0 36px rgba(182,134,44,0.35)' }}
+              whileTap={{ scale: 0.97 }}
+              className="inline-flex items-center gap-3 px-10 py-4 rounded-full text-sm font-semibold tracking-widest text-[#111111] transition-all duration-300"
+              style={{
+                background: 'linear-gradient(135deg, #B6862C, #D4A84B, #B6862C)',
+                backgroundSize: '200% auto',
+                letterSpacing: '0.12em',
+              }}
+            >
+              Explore Full Gallery
+              <ArrowRight size={16} />
+            </motion.span>
+          </Link>
         </motion.div>
       </div>
 
@@ -258,11 +265,14 @@ export default function Gallery() {
               className="relative max-w-2xl w-full rounded-3xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div
-                className="w-full h-80 flex items-center justify-center"
-                style={{ background: lightboxItem.bg }}
-              >
-                <span className="text-9xl opacity-40">{lightboxItem.icon}</span>
+              <div className="relative w-full h-80">
+                <Image
+                  src={lightboxItem.src}
+                  alt={lightboxItem.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 672px"
+                />
               </div>
               <div className="glass-dark p-6">
                 <span
