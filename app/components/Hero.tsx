@@ -1,0 +1,290 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
+import Image from 'next/image'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ChevronDown } from 'lucide-react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+const stats = [
+  { value: '7', label: 'Yoga Styles' },
+  { value: '6', label: 'Dance Forms' },
+  { value: '20+', label: 'Years Experience' },
+  { value: '7', label: 'Days Open' },
+]
+
+export default function Hero() {
+  const heroRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0])
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Parallax on mouse move
+      const hero = heroRef.current
+      if (!hero) return
+
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e
+        const { innerWidth, innerHeight } = window
+        const x = (clientX / innerWidth - 0.5) * 20
+        const yPos = (clientY / innerHeight - 0.5) * 10
+
+        gsap.to('.hero-bg-layer', {
+          x: x * 0.5,
+          y: yPos * 0.3,
+          duration: 1.5,
+          ease: 'power2.out',
+        })
+
+        gsap.to('.hero-text-layer', {
+          x: x * -0.1,
+          y: yPos * -0.05,
+          duration: 2,
+          ease: 'power2.out',
+        })
+      }
+
+      window.addEventListener('mousemove', handleMouseMove)
+      return () => window.removeEventListener('mousemove', handleMouseMove)
+    }, heroRef)
+
+    return () => ctx.revert()
+  }, [])
+
+  const scrollToNext = () => {
+    const next = document.getElementById('about')
+    if (next) next.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  return (
+    <section
+      id="hero"
+      ref={heroRef}
+      className="relative w-full h-screen min-h-[700px] overflow-hidden flex items-center justify-center pt-24 lg:pt-32 pb-24"
+    >
+      {/* Animated cinematic background */}
+      <motion.div
+        className="hero-bg-layer absolute inset-0"
+        style={{ scale, y }}
+      >
+        {/* Dual composition — real photos split: Yoga left | Dance right */}
+        <div className="absolute inset-0 flex">
+          {/* Left — Yoga photo */}
+          <div className="relative w-1/2 h-full overflow-hidden">
+            <Image
+              src="https://images.pexels.com/photos/2280200/pexels-photo-2280200.jpeg?auto=compress&cs=tinysrgb&w=1280&q=85"
+              alt="Yoga practice at sunset"
+              fill
+              priority
+              sizes="50vw"
+              className="object-cover object-center"
+            />
+            {/* Darken left side slightly more toward center */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/20 to-black/60" />
+          </div>
+
+          {/* Right — Bharatanatyam temple photo */}
+          <div className="relative w-1/2 h-full overflow-hidden">
+            <Image
+              src="https://images.pexels.com/photos/26856873/pexels-photo-26856873.jpeg?auto=compress&cs=tinysrgb&w=1280&q=85"
+              alt="Bharatanatyam classical dance performance"
+              fill
+              priority
+              sizes="50vw"
+              className="object-cover object-top"
+            />
+            {/* Darken right side slightly more toward center */}
+            <div className="absolute inset-0 bg-gradient-to-l from-black/40 via-black/20 to-black/60" />
+          </div>
+        </div>
+
+        {/* Center split line glow */}
+        <div
+          className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-0.5 opacity-60 z-10"
+          style={{
+            background:
+              'linear-gradient(180deg, transparent, #B6862C 30%, #D4A84B 50%, #B6862C 70%, transparent)',
+          }}
+        />
+
+        {/* Cinematic vignette + bottom fade for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/85 z-10" />
+
+        {/* Subtle radial vignette edges */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)',
+          }}
+        />
+      </motion.div>
+
+      {/* Content */}
+      <motion.div
+        className="hero-text-layer relative z-20 text-center px-6 max-w-5xl mx-auto w-full"
+        style={{ opacity }}
+      >
+        {/* Tag line */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex items-center justify-center gap-3 mb-6"
+        >
+          <span className="h-px w-12 bg-[#B6862C]" />
+          <span
+            className="text-[#B6862C] text-xs tracking-[0.35em] uppercase font-medium"
+          >
+            Yoga & Classical Dance Academy • Dubai
+          </span>
+          <span className="h-px w-12 bg-[#B6862C]" />
+        </motion.div>
+
+        {/* Main heading */}
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.65 }}
+          className="font-heading mb-6 leading-[1.08] tracking-tight"
+          style={{
+            fontFamily: 'var(--font-playfair)',
+            fontSize: 'clamp(2.8rem, 7vw, 6.5rem)',
+          }}
+        >
+          <span className="text-[#F8F6F2]">Balance.</span>{' '}
+          <span className="text-gradient-gold">Harmony.</span>
+          <br />
+          <span className="text-[#F8F6F2]">Growth.</span>
+        </motion.h1>
+
+        {/* Subheading */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.85 }}
+          className="text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed"
+          style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}
+        >
+          Experience world-class Yoga and Classical Dance in Dubai&apos;s most
+          inspiring wellness sanctuary.
+        </motion.p>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.05 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(182,134,44,0.4)' }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => {
+              document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            className="px-9 py-4 rounded-full text-[#111111] font-semibold tracking-widest text-sm transition-all duration-300"
+            style={{
+              background: 'linear-gradient(135deg, #B6862C, #D4A84B, #B6862C)',
+              backgroundSize: '200% auto',
+              letterSpacing: '0.12em',
+            }}
+          >
+            Book Free Trial
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05, borderColor: '#B6862C', color: '#B6862C' }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => {
+              document.getElementById('disciplines')?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            className="px-9 py-4 rounded-full border border-white/30 text-white/80 font-medium tracking-widest text-sm transition-all duration-300 hover:bg-white/5"
+            style={{ letterSpacing: '0.12em' }}
+          >
+            Explore Classes
+          </motion.button>
+        </motion.div>
+
+        {/* Floating stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.3 }}
+          className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"
+        >
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.3 + i * 0.1 }}
+              className="glass rounded-2xl px-4 py-4 text-center"
+            >
+              <div
+                className="font-heading text-2xl font-bold text-gradient-gold"
+                style={{ fontFamily: 'var(--font-playfair)' }}
+              >
+                {stat.value}
+              </div>
+              <div className="text-white/50 text-xs mt-1 tracking-wide">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Scroll indicator — sits in the pb-24 reserve below the stats */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        onClick={scrollToNext}
+        className="absolute bottom-6 lg:bottom-16 left-1/2 -translate-x-1/2 lg:left-auto lg:right-10 lg:translate-x-0 z-30 flex flex-col items-center gap-1.5 text-white/40 hover:text-[#B6862C] transition-colors"
+      >
+        <span className="text-xs tracking-[0.2em] uppercase">Scroll</span>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ChevronDown size={20} />
+        </motion.div>
+      </motion.button>
+
+      {/* Corner decorations */}
+      <div className="absolute top-8 left-8 opacity-30">
+        <CornerDecor />
+      </div>
+      <div className="absolute top-8 right-8 opacity-30 rotate-90">
+        <CornerDecor />
+      </div>
+      <div className="absolute bottom-8 left-8 opacity-30 -rotate-90">
+        <CornerDecor />
+      </div>
+      <div className="absolute bottom-8 right-8 opacity-30 rotate-180">
+        <CornerDecor />
+      </div>
+    </section>
+  )
+}
+
+function CornerDecor() {
+  return (
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <path d="M2 2 L2 20" stroke="#B6862C" strokeWidth="1.5" />
+      <path d="M2 2 L20 2" stroke="#B6862C" strokeWidth="1.5" />
+      <circle cx="2" cy="2" r="2" fill="#B6862C" />
+    </svg>
+  )
+}
