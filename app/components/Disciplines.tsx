@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
@@ -34,7 +34,6 @@ interface TiltCardProps {
 function TiltCard({ title, subtitle, items, color, image, index }: TiltCardProps) {
   const router = useRouter()
   const ref = useRef<HTMLDivElement>(null)
-  const [isHovered, setIsHovered] = useState(false)
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
@@ -52,7 +51,6 @@ function TiltCard({ title, subtitle, items, color, image, index }: TiltCardProps
   const handleMouseLeave = () => {
     mouseX.set(0)
     mouseY.set(0)
-    setIsHovered(false)
   }
 
   const isYoga = color === 'yoga'
@@ -67,15 +65,14 @@ function TiltCard({ title, subtitle, items, color, image, index }: TiltCardProps
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.9, delay: index * 0.18, ease: [0.16, 1, 0.3, 1] }}
-      className="h-full"
+      className="h-full group"
       style={{ perspective: '1200px', transformStyle: 'preserve-3d' }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d', border: '1px solid rgba(182,134,44,0.18)' }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={handleMouseLeave}
-        className="relative rounded-3xl overflow-hidden cursor-pointer group h-full flex flex-col"
+        className="relative rounded-3xl overflow-hidden cursor-pointer h-full flex flex-col"
       >
         {/* Real photo background */}
         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
@@ -150,15 +147,20 @@ function TiltCard({ title, subtitle, items, color, image, index }: TiltCardProps
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => router.push('/disciplines')}
-            className="w-full py-4 rounded-xl text-sm font-semibold tracking-widest transition-all duration-300"
+            className="relative w-full py-4 rounded-xl text-sm font-semibold tracking-widest overflow-hidden"
             style={{
-              background: isHovered ? 'linear-gradient(135deg, #B6862C, #D4A84B)' : 'rgba(182,134,44,0.12)',
-              color: isHovered ? '#111111' : '#B6862C',
+              background: 'rgba(182,134,44,0.12)',
               border: '1px solid rgba(182,134,44,0.3)',
               letterSpacing: '0.1em',
             }}
           >
-            Explore {title}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)' }}
+            />
+            <span className="relative z-10 text-[#B6862C] group-hover:text-[#111111] transition-colors duration-300">
+              Explore {title}
+            </span>
           </motion.button>
         </div>
       </motion.div>
