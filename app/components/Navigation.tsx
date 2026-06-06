@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Disciplines', href: '/disciplines' },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
 ]
 
