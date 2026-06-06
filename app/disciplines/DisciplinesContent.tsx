@@ -300,13 +300,13 @@ export default function DisciplinesContent() {
       <section className="relative w-full h-[65vh] min-h-[500px] flex items-end overflow-hidden pt-24">
         <div className="absolute inset-0">
           <Image
-            src="https://images.pexels.com/photos/26856873/pexels-photo-26856873.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85"
+            src="https://images.pexels.com/photos/36121661/pexels-photo-36121661.jpeg?auto=compress&cs=tinysrgb&w=1920&q=85"
             alt="Classical dance at SOHAM UAE"
             fill priority sizes="100vw"
-            className="object-cover object-top"
+            className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/92" />
-          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%)' }} />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/75" />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.3) 100%)' }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pb-16 w-full">

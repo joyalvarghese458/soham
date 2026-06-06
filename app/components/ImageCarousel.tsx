@@ -156,13 +156,13 @@ export default function ImageCarousel() {
       x: 0,
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.75, ease: EASE },
+      transition: { duration: 0.3, ease: EASE },
     },
     exit: (dir: number) => ({
       x: dir > 0 ? '-100%' : '100%',
       opacity: 0,
       scale: 0.96,
-      transition: { duration: 0.6, ease: EASE },
+      transition: { duration: 0.25, ease: EASE },
     }),
   }
 
@@ -184,10 +184,10 @@ export default function ImageCarousel() {
 
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-10 lg:mb-14"
         >
           <span className="text-[#B6862C] text-xs tracking-[0.35em] uppercase font-medium">
@@ -214,7 +214,7 @@ export default function ImageCarousel() {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, delay: 0.15 }}
+          transition={{ duration: 0.3, delay: 0.05 }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onTouchStart={() => setPaused(true)}
@@ -264,9 +264,9 @@ export default function ImageCarousel() {
                 {/* Slide text */}
                 <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8 lg:p-12">
                   <motion.div
-                    initial={{ opacity: 0, y: 22 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.55, delay: 0.25 }}
+                    transition={{ duration: 0.15, delay: 0.05 }}
                   >
                     <span
                       className="inline-block text-[10px] sm:text-xs tracking-[0.28em] uppercase font-medium px-3 py-1 rounded-full mb-3"
