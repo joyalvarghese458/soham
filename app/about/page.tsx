@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import AboutContent from './AboutContent'
 
@@ -12,7 +11,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="relative">
-      <Navigation />
       <AboutContent />
       <Footer />
     </main>

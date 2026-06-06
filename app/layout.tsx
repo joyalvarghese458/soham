@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
+import Navigation from './components/Navigation'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -183,7 +184,10 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-[#111111] text-[#F8F6F2] antialiased overflow-x-hidden">
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <Navigation />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   )

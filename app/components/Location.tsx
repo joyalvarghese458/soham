@@ -105,18 +105,18 @@ export default function Location() {
           >
             {/* Google Maps embed */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.4!2d55.3647!3d25.2522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f2e2e2e2e2e%3A0x0!2sWasl+Village+Mall%2C+Muhaisnah%2C+Dubai!5e0!3m2!1sen!2sae!4v1700000000000!5m2!1sen!2sae"
+              src="https://maps.google.com/maps?q=Wasl+Village+Mall,+Muhaisnah,+Dubai,+UAE&hl=en&z=16&output=embed"
               width="100%"
               height="100%"
               style={{
                 border: 0,
-                filter: 'invert(90%) hue-rotate(180deg) saturate(0.6)',
+                filter: 'invert(88%) hue-rotate(180deg) saturate(0.5) brightness(0.95)',
                 minHeight: '420px',
               }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="SOHAM UAE Studio Location"
+              title="SOHAM UAE Studio Location — Wasl Village Mall, Muhaisnah, Dubai"
             />
 
             {/* Map overlay badge */}

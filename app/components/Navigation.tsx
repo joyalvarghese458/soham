@@ -9,7 +9,7 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
   { label: 'Disciplines', href: '/disciplines' },
-  { label: 'Gallery', href: '#gallery' },
+  { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '#location' },
 ]
 
@@ -39,8 +39,13 @@ export default function Navigation() {
     if (href.startsWith('/')) {
       router.push(href)
     } else {
-      const el = document.querySelector(href)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const lenis = (window as any).lenis
+      if (lenis) {
+        lenis.scrollTo(href, { offset: -96, duration: 1.2 })
+      } else {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 

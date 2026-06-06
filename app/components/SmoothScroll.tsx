@@ -12,16 +12,19 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.8,
     })
 
     lenisRef.current = lenis
+    // Expose so Navigation can call lenis.scrollTo() for anchor links
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ;(window as any).lenis = lenis
 
     lenis.on('scroll', ScrollTrigger.update)
 
@@ -33,9 +36,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       lenis.destroy()
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ;(window as any).lenis = undefined
     }
   }, [])
 

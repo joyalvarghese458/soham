@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { motion, useInView, useAnimation } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -111,18 +112,18 @@ export default function WhySoham() {
             className="relative"
           >
             <div className="relative overflow-hidden rounded-3xl aspect-[4/5]">
-              <div
-                ref={imageRef}
-                className="absolute inset-0"
-                style={{
-                  background:
-                    'linear-gradient(135deg, #1D3B2A 0%, #2D5A3F 40%, #1A3226 70%, #0F2016 100%)',
-                }}
-              >
-                {/* Abstract yoga/dance art */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <AbstractWellnessArt />
-                </div>
+              <div ref={imageRef} className="absolute inset-0">
+                <Image
+                  src="https://images.pexels.com/photos/8436405/pexels-photo-8436405.jpeg?auto=compress&cs=tinysrgb&w=900&q=85"
+                  alt="Yoga class at SOHAM UAE"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover object-center"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(180deg, rgba(13,31,20,0.25) 0%, rgba(13,31,20,0.55) 100%)' }}
+                />
               </div>
 
               {/* Floating badge */}
