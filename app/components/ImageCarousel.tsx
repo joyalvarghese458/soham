@@ -96,7 +96,7 @@ const SLIDES = [
   },
 ]
 
-const AUTO_INTERVAL = 5000
+const AUTO_INTERVAL = 1000
 
 export default function ImageCarousel() {
   const [current, setCurrent] = useState(0)
@@ -367,11 +367,10 @@ export default function ImageCarousel() {
               >
                 {/* Thumbnail — visible on sm+ */}
                 <div
-                  className={`hidden sm:block relative overflow-hidden rounded-lg transition-all duration-300 ${
-                    i === current
-                      ? 'ring-2 ring-[#B6862C] ring-offset-1 ring-offset-[#0A0F0C] opacity-100 scale-105'
-                      : 'opacity-35 hover:opacity-65 scale-100'
-                  }`}
+                  className={`hidden sm:block relative overflow-hidden rounded-lg transition-all duration-300 ${i === current
+                    ? 'ring-2 ring-[#B6862C] ring-offset-1 ring-offset-[#0A0F0C] opacity-100 scale-105'
+                    : 'opacity-35 hover:opacity-65 scale-100'
+                    }`}
                   style={{ width: 68, height: 42 }}
                 >
                   <Image
@@ -382,26 +381,23 @@ export default function ImageCarousel() {
                     className="object-cover object-center"
                   />
                   <div
-                    className={`absolute inset-0 transition-opacity duration-300 ${
-                      i === current ? 'opacity-0' : 'opacity-40 bg-black'
-                    }`}
+                    className={`absolute inset-0 transition-opacity duration-300 ${i === current ? 'opacity-0' : 'opacity-40 bg-black'
+                      }`}
                   />
                 </div>
 
                 {/* Dot — visible on mobile */}
                 <div
-                  className={`sm:hidden rounded-full transition-all duration-300 ${
-                    i === current
-                      ? 'w-5 h-1.5 bg-[#B6862C]'
-                      : 'w-1.5 h-1.5 bg-white/30 group-hover:bg-white/50'
-                  }`}
+                  className={`sm:hidden rounded-full transition-all duration-300 ${i === current
+                    ? 'w-5 h-1.5 bg-[#B6862C]'
+                    : 'w-1.5 h-1.5 bg-white/30 group-hover:bg-white/50'
+                    }`}
                 />
 
                 {/* Label under thumbnail */}
                 <span
-                  className={`hidden lg:block text-[9px] tracking-wide transition-colors duration-300 max-w-[68px] text-center leading-tight ${
-                    i === current ? 'text-[#B6862C]' : 'text-white/30'
-                  }`}
+                  className={`hidden lg:block text-[9px] tracking-wide transition-colors duration-300 max-w-[68px] text-center leading-tight ${i === current ? 'text-[#B6862C]' : 'text-white/30'
+                    }`}
                 >
                   {s.title}
                 </span>
