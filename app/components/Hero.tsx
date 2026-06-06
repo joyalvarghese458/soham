@@ -154,9 +154,9 @@ export default function Hero() {
       >
         {/* Tag line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
           className="flex items-center justify-center gap-3 mb-6"
         >
           <span className="h-px w-12 bg-[#B6862C]" />
@@ -172,7 +172,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.65 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="font-heading mb-6 leading-[1.08] tracking-tight"
           style={{
             fontFamily: 'var(--font-playfair)',
@@ -189,7 +189,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.85 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
           className="text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed"
           style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}
         >
@@ -201,7 +201,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.05 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
           <motion.button
@@ -236,7 +236,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.3 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
           className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto"
         >
           {stats.map((stat, i) => (
@@ -244,7 +244,7 @@ export default function Hero() {
               key={stat.label}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.3 + i * 0.1 }}
+              transition={{ delay: 0.5 + i * 0.05 }}
               className="glass rounded-2xl px-4 py-4 text-center"
             >
               <div
@@ -265,7 +265,7 @@ export default function Hero() {
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 0.8 }}
         onClick={scrollToNext}
         className="absolute bottom-6 lg:bottom-16 left-1/2 -translate-x-1/2 lg:left-auto lg:right-10 lg:translate-x-0 z-30 flex flex-col items-center gap-1.5 text-white/40 hover:text-[#B6862C] transition-colors"
       >
