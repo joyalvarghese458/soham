@@ -32,7 +32,7 @@ const galleryItems = [
     title: 'Mohiniyattam Workshop',
     category: 'Dance',
     aspect: 'tall',
-    src: 'https://images.pexels.com/photos/7234215/pexels-photo-7234215.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
+    src: 'https://images.pexels.com/photos/30424954/pexels-photo-30424954.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Dance of the enchantress',
   },
   {
@@ -53,7 +53,7 @@ const galleryItems = [
     title: 'Kids Kuchipudi',
     category: 'Dance',
     aspect: 'wide',
-    src: 'https://images.pexels.com/photos/8988434/pexels-photo-8988434.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
+    src: 'https://images.pexels.com/photos/30481584/pexels-photo-30481584.jpeg?auto=compress&cs=tinysrgb&w=800&q=85',
     desc: 'Little feet, big dreams',
   },
   {
