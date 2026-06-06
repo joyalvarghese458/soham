@@ -96,7 +96,7 @@ const SLIDES = [
   },
 ]
 
-const AUTO_INTERVAL = 1000
+const AUTO_INTERVAL = 3000
 
 export default function ImageCarousel() {
   const [current, setCurrent] = useState(0)
