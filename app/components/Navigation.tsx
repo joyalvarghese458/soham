@@ -1,21 +1,31 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Phone } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
   { label: 'Disciplines', href: '#disciplines' },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Contact', href: '#location' },
 ]
 
 export default function Navigation() {
+  const router = useRouter()
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeLink, setActiveLink] = useState('Home')
+
+  // Sync active link with the current URL whenever the route changes
+  useEffect(() => {
+    const match = navLinks.find((l) => l.href === pathname)
+    if (match) setActiveLink(match.label)
+    else if (pathname === '/') setActiveLink('Home')
+  }, [pathname])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -26,9 +36,11 @@ export default function Navigation() {
   const handleNav = (href: string, label: string) => {
     setActiveLink(label)
     setMenuOpen(false)
-    const el = document.querySelector(href)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
+    if (href.startsWith('/')) {
+      router.push(href)
+    } else {
+      const el = document.querySelector(href)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
@@ -47,8 +59,8 @@ export default function Navigation() {
             {/* Logo — flex-1 so nav links stay centered */}
             <div className="flex-1 flex items-center">
               <motion.a
-                href="#hero"
-                onClick={() => handleNav('#hero', 'Home')}
+                href="/"
+                onClick={() => handleNav('/', 'Home')}
                 className="flex items-center gap-3 cursor-pointer"
                 whileHover={{ scale: 1.02 }}
               >

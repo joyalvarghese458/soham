@@ -20,7 +20,7 @@ const footerLinks = {
     'Bollywood',
   ],
   quick: [
-    { label: 'About Soham', href: '#about' },
+    { label: 'About Soham', href: '/about' },
     { label: 'Our Founders', href: '#founders' },
     { label: 'Gallery', href: '#gallery' },
     { label: 'Student Reviews', href: '#testimonials' },
