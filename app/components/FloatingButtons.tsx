@@ -1,26 +1,27 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import type { TargetAndTransition } from 'framer-motion'
 import { Phone } from 'lucide-react'
 
-const jump = {
+const jump: TargetAndTransition = {
   y: [0, -8, 0],
   transition: {
     duration: 1.2,
     repeat: Infinity,
     repeatDelay: 2,
-    ease: 'easeInOut',
+    ease: [0.45, 0, 0.55, 1],
   },
 }
 
-const jumpDelayed = {
+const jumpDelayed: TargetAndTransition = {
   y: [0, -8, 0],
   transition: {
     duration: 1.2,
     repeat: Infinity,
     repeatDelay: 2,
     delay: 0.6,
-    ease: 'easeInOut',
+    ease: [0.45, 0, 0.55, 1],
   },
 }
 
