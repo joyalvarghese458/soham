@@ -250,7 +250,8 @@ export default function Disciplines() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
             onClick={() => {
-              document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })
+              const el = document.getElementById('location')
+              if (el) (window as any).lenis?.scrollTo(el, { offset: -80, duration: 1.2 })
             }}
             className="px-8 py-3.5 rounded-full text-sm font-medium tracking-wider text-[#111111] transition-all duration-300"
             style={{ background: 'linear-gradient(135deg, #B6862C, #D4A84B)', letterSpacing: '0.1em' }}

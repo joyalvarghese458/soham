@@ -202,7 +202,8 @@ export default function Hero() {
             whileHover={{ scale: 1.05, boxShadow: '0 0 40px rgba(182,134,44,0.4)' }}
             whileTap={{ scale: 0.97 }}
             onClick={() => {
-              document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' })
+              const el = document.getElementById('location')
+              if (el) (window as any).lenis?.scrollTo(el, { offset: -80, duration: 1.2 })
             }}
             className="px-9 py-4 rounded-full text-[#111111] font-semibold tracking-widest text-sm transition-all duration-300"
             style={{
@@ -217,7 +218,8 @@ export default function Hero() {
             whileHover={{ scale: 1.05, borderColor: '#B6862C', color: '#B6862C' }}
             whileTap={{ scale: 0.97 }}
             onClick={() => {
-              document.getElementById('disciplines')?.scrollIntoView({ behavior: 'smooth' })
+              const el = document.getElementById('disciplines')
+              if (el) (window as any).lenis?.scrollTo(el, { offset: -80, duration: 1.2 })
             }}
             className="px-9 py-4 rounded-full border border-white/30 text-white/80 font-medium tracking-widest text-sm transition-all duration-300 hover:bg-white/5"
             style={{ letterSpacing: '0.12em' }}

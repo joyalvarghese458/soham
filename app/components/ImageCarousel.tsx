@@ -419,9 +419,10 @@ export default function ImageCarousel() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() =>
-              document.getElementById('disciplines')?.scrollIntoView({ behavior: 'smooth' })
-            }
+            onClick={() => {
+              const el = document.getElementById('disciplines')
+              if (el) (window as any).lenis?.scrollTo(el, { offset: -80, duration: 1.2 })
+            }}
             className="flex-shrink-0 px-7 py-3 rounded-full text-sm font-semibold text-[#111] tracking-widest transition-all duration-300"
             style={{
               background: 'linear-gradient(135deg, #B6862C, #D4A84B)',
