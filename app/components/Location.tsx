@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Navigation2, ExternalLink } from 'lucide-react'
 
@@ -40,6 +41,8 @@ const landmarks = [
 ]
 
 export default function Location() {
+  const [mapActive, setMapActive] = useState(false)
+
   return (
     <section
       id="location"
@@ -96,28 +99,40 @@ export default function Location() {
         <div className="grid lg:grid-cols-5 gap-8 items-stretch">
           {/* Map — takes 3 columns */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6 }}
+            onMouseLeave={() => setMapActive(false)}
             className="lg:col-span-3 relative rounded-3xl overflow-hidden"
-            style={{ minHeight: '420px' }}
+            style={{ height: '420px', willChange: 'opacity', transform: 'translateZ(0)' }}
           >
             {/* Google Maps embed */}
             <iframe
               src="https://maps.google.com/maps?q=Wasl+Village+Mall,+Muhaisnah,+Dubai,+UAE&hl=en&z=16&output=embed"
               width="100%"
               height="100%"
-              style={{
-                border: 0,
-                filter: 'invert(88%) hue-rotate(180deg) saturate(0.5) brightness(0.95)',
-                minHeight: '420px',
-              }}
+              style={{ border: 0, display: 'block', pointerEvents: mapActive ? 'auto' : 'none' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="SOHAM UAE Studio Location — Wasl Village Mall, Muhaisnah, Dubai"
             />
+
+            {/* Overlay — blocks scroll hijack until user clicks */}
+            {!mapActive && (
+              <div
+                className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"
+                onClick={() => setMapActive(true)}
+              >
+                <div
+                  className="px-4 py-2 rounded-full text-xs text-white/70 font-medium"
+                  style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(6px)', border: '1px solid rgba(255,255,255,0.1)' }}
+                >
+                  Click to interact with map
+                </div>
+              </div>
+            )}
 
             {/* Map overlay badge */}
             <div className="absolute top-4 left-4">
@@ -154,10 +169,10 @@ export default function Location() {
 
           {/* Contact info — takes 2 columns */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="lg:col-span-2 flex flex-col gap-4"
           >
             {/* Contact cards */}
