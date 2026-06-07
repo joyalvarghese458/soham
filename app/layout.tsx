@@ -3,6 +3,7 @@ import { Playfair_Display, Inter } from 'next/font/google'
 import './globals.css'
 import SmoothScroll from './components/SmoothScroll'
 import Navigation from './components/Navigation'
+import FloatingButtons from './components/FloatingButtons'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -187,6 +188,7 @@ export default function RootLayout({
         <SmoothScroll>
           <Navigation />
           {children}
+          <FloatingButtons />
         </SmoothScroll>
       </body>
     </html>

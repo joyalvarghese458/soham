@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ChevronDown } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -99,11 +98,6 @@ export default function Hero() {
 
     return () => ctx.revert()
   }, [])
-
-  const scrollToNext = () => {
-    const next = document.getElementById('about')
-    if (next) next.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section
@@ -261,22 +255,6 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator — sits in the pb-24 reserve below the stats */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        onClick={scrollToNext}
-        className="absolute bottom-6 lg:bottom-16 left-1/2 -translate-x-1/2 lg:left-auto lg:right-10 lg:translate-x-0 z-30 flex flex-col items-center gap-1.5 text-white/40 hover:text-[#B6862C] transition-colors"
-      >
-        <span className="text-xs tracking-[0.2em] uppercase">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <ChevronDown size={20} />
-        </motion.div>
-      </motion.button>
 
       {/* Corner decorations */}
       <div className="absolute top-8 left-8 opacity-30">
